@@ -1,0 +1,49 @@
+~~~DJANGO COMMANDS CHEAT SHEET~~~
+
+---Create a project (in the proper directory):
+	django-admin.py startproject [project name]
+
+---Start your server (add the port and IP optionally)
+	python manage.py runserver [port & IP options]
+
+---Create a new app in a project:
+	python manage.py startapp polls
+
+---Create database tables AFTER DEFINING MODELS:
+	python manage.py sql polls
+
+---Check for model errors
+	python manage.py validate
+
+---Sync model with database
+	python manage.py syncdb
+
+---Open Python shell
+	python manage.py shell
+
+Django Workflow
+
+1     Create a new project and a new app called mainapp
+	django-admin.py startproject [name]
+	cd into directory
+	django-admin.py startapp mainapp
+2     Edit settings.py. Fix the following:
+        Database settings
+        Installed apps
+        Media and media admin paths
+        Most recently, to add CSS and JS paths
+3     Edit urls.py in the project folder and
+        Uncomment the admin paths
+        Include mainapp.urls.py
+4     Create a new urls.py in the mainapp folder
+        Create a path that display a view called home
+5     Create a new templates folder
+6     Create a base.html file in the templates folder
+        Create a place-holder variable within base.html
+7     Edit the views.py file. Create a new view called home and return ‘hello world’ using the base.html template and a place-holder variable
+8     Create a media folder the project folder (1 level up from the mainapp folder)
+9     Edit the models.py file
+10    Run syncdb
+11    At this point, you should be able to access both your admin page and your homepage that outputs ‘hello world’ by running the development server
+
+
