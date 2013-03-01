@@ -1,3 +1,0 @@
----MyNewMedia README---
-
-TODO
