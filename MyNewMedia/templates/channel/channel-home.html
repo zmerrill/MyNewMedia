@@ -1,0 +1,33 @@
+{% extends "channel/channel-base.html" %}
+
+{% block menu %}
+	{% if channel.owner == user %}
+	<a id="displayText" href="javascript:toggle();">Add Link</a>
+	<div id="toggle" style="display: none">
+	<!-- Comment form  -->
+		<form action="{% url 'channels.views.addlink' channel.url_ext %}" method="POST">{% csrf_token %}
+			<div id="cform">
+				<p>Title: {{ form.title }}</p>
+				<p>URL: {{ form.url }}</p>
+				<p>Description: {{ form.description }}</p>
+				<p>CHANNEL: {{ form.channel }}</p>
+			</div>
+			<div id="submit"><input type="submit" value="Submit"></div>
+		</form>
+	</div>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	{% for link in links %}
+	<div class="comment">
+				<div class="time">{{ link.title }} | {{ link.created }}</div>
+				<div class="body">{{ link.description|linebreaks }}</div>
+				<div class="link">{{ link.url }}</div>
+	</div>
+	{% endfor %}
+{% endblock %}
+
+{% block recs %}
+
+{% endblock %}

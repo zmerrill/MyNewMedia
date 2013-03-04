@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" type="text/css"
+ 	href="/static/style.css"/>
+ 	<style>
+      input.required, error {
+        border: 2px solid red;
+      }
+    </style>
+    <script language="javascript"> 
+		function toggle() {
+			var ele = document.getElementById("toggle");
+			if(ele.style.display == "block") {
+    			ele.style.display = "none";
+  			}
+			else {
+				ele.style.display = "block";
+			}
+		} 
+</script>
+</head>
+
+<body>
+	<div id="Base">
+	
+		<div id="header">
+			{% block header %}{% endblock %}
+			<div id='user_info'>
+				{% if user.is_authenticated %}
+    				<p>Hi there, {{ user.username }}. <a href="/accounts/logout/">Logout</a></p>
+				{% else %}
+    				<p>Hi there. Please <a href="/accounts/login/">log in.</a></p>
+				{% endif %}
+			</div>
+			
+		</div>
+		
+		{% block main %}{% endblock %}
+		
+		<div id="footer">
+			{% block footer %}{% endblock %}
+		</div>
+		
+	</div>
+</body>
+</html>

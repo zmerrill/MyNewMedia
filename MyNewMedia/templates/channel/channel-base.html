@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}{{ channel.title }}{% endblock %}
+
+{% block header %}
+	<h3>{{ channel.title }}</h3>
+	<br/>
+	<button type="button" id="button">Dashboard</button>
+	<button type="button" id="button">Settings</button>
+	<button type="button" id="button">Logout</button>
+{% endblock %}
+
+{% block main %}
+	<div id="menu">
+		{% block menu %}{% endblock %}
+	</div>
+	
+	<div id="content">
+		{% block content %}{% endblock %}
+	</div>
+	
+	<div id="recs">
+		{% block recs %}{% endblock %}
+	</div>
+{% endblock %}
+
+{% block footer %}
+	<p>Thanks for stopping by.</p>
+{% endblock %}

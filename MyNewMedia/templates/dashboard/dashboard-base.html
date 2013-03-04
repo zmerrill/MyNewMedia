@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}USER NAME HERE{% endblock %}
+
+{% block header %}
+	<h3>USER NAME HERE</h3>
+	<br/>
+	<button type="button" id="button">My Subscrptions</button>
+	<button type="button" id="button">Settings</button>
+	<button type="button" id="button">Logout</button>
+{% endblock %}
+
+{% block main %}
+	<div id="menu">
+		{% block menu %}{% endblock %}
+	</div>
+	
+	<div id="content">
+		{% block content %}{% endblock %}
+	</div>
+{% block main %}
+
+{% block footer %}
+	<p>Thanks for stopping by.</p>
+{% endblock %}
