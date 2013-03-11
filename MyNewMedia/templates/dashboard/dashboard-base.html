@@ -1,24 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}USER NAME HERE{% endblock %}
-
-{% block header %}
-	<h3>USER NAME HERE</h3>
-	<br/>
-	<button type="button" id="button">My Subscrptions</button>
-	<button type="button" id="button">Settings</button>
-	<button type="button" id="button">Logout</button>
-{% endblock %}
+{% block title %}MyNewMedia Home - {{ user.username }}{% endblock %}
 
 {% block main %}
-	<div id="menu">
+	<div id="menu" style="float:left;width:170pt;height:inherit;">
 		{% block menu %}{% endblock %}
 	</div>
 	
-	<div id="content">
+	<div id="content" style="float:none;margin-left:200pt;margin-right:200pt;">
 		{% block content %}{% endblock %}
 	</div>
-{% block main %}
+{% endblock %}
 
 {% block footer %}
 	<p>Thanks for stopping by.</p>

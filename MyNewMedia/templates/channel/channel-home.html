@@ -1,9 +1,12 @@
 {% extends "channel/channel-base.html" %}
 
 {% block menu %}
+	<h3>{{ channel.title }}</h3>
+	<p>{{ channel.description }}</p>
+
 	{% if channel.owner == user %}
 	<a id="displayText" href="javascript:toggle();">Add Link</a>
-	<div id="toggle" style="display: none">
+	<div class="toggle" id="toggle" style="display: none">
 	<!-- Comment form  -->
 		<form action="{% url 'channels.views.addlink' channel.url_ext %}" method="POST">{% csrf_token %}
 			<div id="cform">
@@ -12,22 +15,47 @@
 				<p>Description: {{ form.description }}</p>
 				<p>CHANNEL: {{ form.channel }}</p>
 			</div>
-			<div id="submit"><input type="submit" value="Submit"></div>
+			<div id="submit"><input class="action_button" type="submit" value="Submit"></div>
 		</form>
 	</div>
+	{% else %}
+	{% if subscription %}
+		{% if subscription != 'NotLoggedIn' %}
+			<p>You are subscribed to this channel!</p>
+			<form action="{% url 'subscriptions.views.unsubscribe' channel.url_ext %}" method="POST">{% csrf_token %}
+				<div id="unubscribe"><input type="submit" value="Unsubscribe" class="action_button"></div>
+			</form>
+		{% else %}
+			<a href="/accounts/login/">Log in to subscribe to this channel.</a>
+		{% endif %}
+	{% else %}
+		<form action="{% url 'subscriptions.views.subscribe' channel.url_ext %}" method="POST">{% csrf_token %}
+			<div id="subscribe"><input type="submit" value="Subscribe" class="action_button"></div>
+		</form>
 	{% endif %}
+	{% endif %}
+	
 {% endblock %}
 
 {% block content %}
-	{% for link in links %}
-	<div class="comment">
-				<div class="time">{{ link.title }} | {{ link.created }}</div>
-				<div class="body">{{ link.description|linebreaks }}</div>
-				<div class="link">{{ link.url }}</div>
+	{% if channel.feed %}
+	<div id="feed-test">
+		{% load channel_extras %}{% pull_feed channel.feed 5 %}
 	</div>
-	{% endfor %}
+	{% else %}
+		{% for link in links %}
+		<div class="link">
+					<div class="time"><h4>{{ link.title }} | {{ link.created }}</h4></div>
+					<div class="body">{{ link.description|linebreaks }}</div>
+					<div class="link">
+					<iframe width="100%" height="315" src="{{ link.url }}"></iframe>
+					</div>
+		</div>
+		<hr>
+		{% endfor %}
+	{% endif %}
 {% endblock %}
 
 {% block recs %}
-
+	<h3>Recommendations</h3>
 {% endblock %}

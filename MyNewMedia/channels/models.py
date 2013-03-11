@@ -11,11 +11,12 @@ class ChannelType(TimeStampedModel):
 
 class Channel(TimeStampedModel):
     title = models.CharField(max_length=256)
-    url_ext = models.CharField(max_length=50)
+    url_ext = models.CharField(max_length=50, unique=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     description = models.TextField()
     type = models.ForeignKey(ChannelType)
     language = models.CharField(max_length=100)
+    feed = models.URLField()
     
     def __unicode__(self):
         return self.title

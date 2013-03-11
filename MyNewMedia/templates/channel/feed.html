@@ -1,0 +1,7 @@
+{% for post in posts %}
+	<div class="rss">
+				<div class="time"><h4>{{ post.title }}| {{ post.date }}</h4></div>
+				<div class="body">{{ post.summary|safe }}</div>
+	</div>
+	<hr>
+{% endfor %}

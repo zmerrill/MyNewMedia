@@ -3,24 +3,17 @@
 {% block title %}{{ channel.title }}{% endblock %}
 
 {% block header %}
-	<h3>{{ channel.title }}</h3>
-	<br/>
-	<button type="button" id="button">Dashboard</button>
-	<button type="button" id="button">Settings</button>
-	<button type="button" id="button">Logout</button>
 {% endblock %}
 
 {% block main %}
-	<div id="menu">
+	<div id="menu" style="float:left;width:170pt;height:inherit;">
 		{% block menu %}{% endblock %}
 	</div>
-	
-	<div id="content">
-		{% block content %}{% endblock %}
-	</div>
-	
-	<div id="recs">
+	<div id="recs" style="float:right;width:200pt;">
 		{% block recs %}{% endblock %}
+	</div>
+	<div id="content" style="float:none;margin-left:200pt;margin-right:200pt;">
+		{% block content %}{% endblock %}
 	</div>
 {% endblock %}
 

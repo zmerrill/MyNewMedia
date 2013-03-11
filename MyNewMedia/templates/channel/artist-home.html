@@ -1,0 +1,17 @@
+{% extends "channel/channel-base.html" %}
+
+
+
+{% block content %}
+	{% for channel in channels %}
+	<div class="link">
+				<div class="time"><h4>{{ channel.title }} | {{ channel.created }}</h4></div>
+				<div class="body">{{ channel.description|linebreaks }}</div>
+	</div>
+	<hr>
+	{% endfor %}
+{% endblock %}
+
+{% block recs %}
+	<h3>Recommendations</h3>
+{% endblock %}

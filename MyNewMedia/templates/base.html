@@ -9,36 +9,200 @@
       input.required, error {
         border: 2px solid red;
       }
+      body{
+      	font-family:Arial, sans-serif;
+      	font-size:12px;
+      	color:#777;
+      	padding:20px;
+      	background-color:#fff
+      }
+      #menu{
+      	padding-left:10px;
+      	padding-right:10px;
+      	margin-right:10px;
+      	margin-top:-5px;
+      	min-height:100%;
+      	background-color:#f5f5f5;
+      	overflow:hidden;
+      	display:block;
+      	height:100%;
+		-moz-box-shadow: 3px 0px 5px .1px rgba(75, 75, 75, 1);
+		-webkit-box-shadow: 5px 0px 5px .1px rgba(75, 75, 75, 1);
+		box-shadow: 3px 0px 5px .1px rgba(75, 75, 75, 1);
+      }
+      #main{
+      	clear:both;
+      	height:75em;
+      }
+      .clear { clear: both; }
+      #header{
+      	font: 100 14px/1.5 "Interstate","Lucida Grande",Arial,sans-serif;
+      	color:#bbb;
+      	-webkit-box-shadow:  0px 3px 5px 0px rgba(75, 75, 75, 1);
+        box-shadow:  0px 3px 5px 0px rgba(75, 75, 75, 1);
+        margin-bottom:5px;
+      }
+      .header_link{
+      	text-decoration: none;
+      	text-shadow: 0 1px 0 #000;
+      	-webkit-transition: color .2s linear,-webkit-box-shadow .2s linear;
+		-moz-transition: color .2s linear,box-shadow .2s linear;
+		-o-transition: color .2s linear,box-shadow .2s linear;
+		transition: color .2s linear,box-shadow .2s linear;}
+      .header_link:link {color:#ceebcc;}    /* unvisited link */
+	  .header_link:visited {color:#ceebcc;} /* visited link */
+      .header_link:hover {color:#FFF;}   /* mouse over link */
+      .header_link:active {color:#98D695;}  /* selected link */
+      
+      .toggle{-webkit-transition: color .2s linear,-webkit-box-shadow .2s linear;
+		-moz-transition: color .2s linear,box-shadow .2s linear;
+		-o-transition: color .2s linear,box-shadow .2s linear;
+		transition: color .2s linear,box-shadow .2s linear;}
+      label
+	  {
+	     float: left;
+         text-align: right;
+         margin-right: 0.5em;
+      }
+      h1,h3{
+      	color:#777;
+      	font-size:21px;
+      	margin:0;
+      	font-weight:bold;
+      	letter-spaceing:-.0.06em;
+      	border-bottom:1px solid #dfdfdf;
+      }
+      h3{
+      	font-size:18px;
+      	padding-top:10px;
+      }
+.action_button {
+	float:right;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #64b751), color-stop(1, #4e973e) );
+	background:-moz-linear-gradient( center top, #64b751 5%, #4e973e 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#64b751', endColorstr='#4e973e');
+	background-color:#64b751;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	color:#ffffff;
+	font: 100 14px/1.5 "Interstate","Lucida Grande",Arial,sans-serif;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #458537;
+	-webkit-transition: background .2s linear,-webkit-box-shadow .2s linear;
+		-moz-transition: background .2s linear,box-shadow .2s linear;
+		-o-transition: background .2s linear,box-shadow .2s linear;
+		transition: background .2s linear,box-shadow .2s linear;
+}.action_button:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #4e973e), color-stop(1, #64b751) );
+	background:-moz-linear-gradient( center top, #4e973e 5%, #64b751 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4e973e', endColorstr='#64b751');
+	background-color:#4e973e;
+}.action_button:active {
+	position:relative;
+	top:1px;
+}
+ 
+h2 {
+  font: 400 40px/1.5 Helvetica, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+ 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+ 
+li {
+  font: 200 15px/1.5 Helvetica, Verdana, sans-serif;
+  border-bottom: 1px solid #ccc;
+}
+ 
+li:last-child {
+  border: none;
+}
+ 
+li a {
+  text-decoration: none;
+  color:#777;
+  display: block;
+  width: 170pt;
+ 
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+ 
+li a:hover {
+  background: #abd8a7;
+}
+li ul li a{
+	padding-left:5px;
+	font: 200 13px/1.5 Helvetica, Verdana, sans-serif;
+}
+
     </style>
-    <script language="javascript"> 
-		function toggle() {
-			var ele = document.getElementById("toggle");
-			if(ele.style.display == "block") {
-    			ele.style.display = "none";
-  			}
-			else {
-				ele.style.display = "block";
-			}
-		} 
-</script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
+    <script> 
+    function toggle() {
+    	  $('#' + "toggle").slideToggle();
+    	}
+    </script>
+    <script type="text/javascript">
+    function sub_toggle() {
+  	  $('#' + "subscribed_channels").show();
+  	  $('#' + "owned_channels").hide();
+  	  $('#' + "feed-test").hide();
+  	}
+    </script>
+    <script type="text/javascript">
+    function owned_toggle() {
+  	  $('#' + "owned_channels").show();
+  	  $('#' + "subscribed_channels").hide();
+  	  $('#' + "feed-test").hide();
+  	}
+    </script>
+    <script type="text/javascript">
+    function feedtest_toggle() {
+      $('#' + "feed-test").show();
+  	  $('#' + "owned_channels").hide();
+  	  $('#' + "subscribed_channels").hide();
+  	}
+    </script>
 </head>
 
 <body>
-	<div id="Base">
-	
-		<div id="header">
-			{% block header %}{% endblock %}
-			<div id='user_info'>
+	<div id="base" style="display:block;position:absolute;left:0;right:0;top:0;font-family:Arial, sans-serif;">
+		<div id="header" style="background-color:#313131;float:left;width:100%;height:45px;" >
+			<div id='home_icon' style="float:left;"><a href="/index/">
+				<img id="logo" src="/static/images/logo.png" alt="MyNewMedia Home" style="padding-left:24px;">
+			</a></div>
+			<div id='home_link' style="float:left;color:#ccc;margin:14px;"><a class="header_link" href="/index/">Home
+			</a></div>
+			<div id='search_bar'></div>
+			<div id='user_info'style="float:right;padding-right:6px">
 				{% if user.is_authenticated %}
-    				<p>Hi there, {{ user.username }}. <a href="/accounts/logout/">Logout</a></p>
+    				<p>Hi there, {{ user.username }}. <a class="header_link" href="/accounts/logout/">Logout</a></p>
 				{% else %}
-    				<p>Hi there. Please <a href="/accounts/login/">log in.</a></p>
+					<p style="padding-right:110px">Welcome to IO Radio, Please <a class="header_link" href="/accounts/login/"> log in </a> or</p> 
+    				<form action="/accounts/register/" style="vertical-align:middle;">
+    					<input style="margin-top: -3.2em;" class="action_button" id="sign_up" type="submit" value="Sign Up">
+					</form>
 				{% endif %}
 			</div>
-			
+			{% block header %}{% endblock %}
 		</div>
 		
-		{% block main %}{% endblock %}
+		<div id="main">
+			{% block main %}{% endblock %}
+			<br class="clear" />
+		</div>
+		
 		
 		<div id="footer">
 			{% block footer %}{% endblock %}
