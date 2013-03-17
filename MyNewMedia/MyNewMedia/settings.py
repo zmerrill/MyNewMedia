@@ -127,7 +127,6 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'core',
     'channels',
-    'comments',
     'profiles',
     'recommendations',
     'subscriptions',

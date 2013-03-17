@@ -1,13 +1,12 @@
-from django import forms
+from django.forms import ModelForm
+from profiles.models import UserProfile, UserPreferences
 
-class RegistrationForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
-    password_verify = forms.CharField(widget=forms.PasswordInput)
-    email = forms.EmailField()
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-
-class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+class ProfileForm(ModelForm):
+    class Meta:
+        model = UserProfile
+        exclude = ["page_views", "owner"]
+        
+class PreferencesForm(ModelForm):
+    class Meta:
+        model = UserPreferences
+        exclude = ["profile"]
