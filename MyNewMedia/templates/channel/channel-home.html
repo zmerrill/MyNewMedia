@@ -1,8 +1,17 @@
 {% extends "channel/channel-base.html" %}
 
 {% block menu %}
+	{% load counter_tags %} {% counter channel %}
 	<h3>{{ channel.title }}</h3>
+	{% if channel.image %} 
+	<div id="profile_pic" style="width:inherit;margin:10px;">
+		<p><img border="1" alt="Profile Pic" src="/media/{{ channel.image.name }}" /></p>
+	</div> 
+	{% endif %}
 	<p>{{ channel.description }}</p>
+	{% load counter_tags %}
+	{% view_count for channels.channel channel.id as page_views %} <p>Channel views: {{ page_views }} times.</p>
+	<p>Subscribers: {{ count }}</p>
 
 	{% if channel.owner == user %}
 	<a id="displayText" href="javascript:toggle();">Add Link</a>

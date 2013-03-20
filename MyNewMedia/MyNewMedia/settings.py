@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     'subscriptions',
     'tags',
     'registration',
+    'django_counter',
 )
 ACCOUNT_ACTIVATION_DAYS=7
 EMAIL_HOST = 'localhost'

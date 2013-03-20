@@ -4,6 +4,22 @@
 
 {% block main %}
 	<div id="menu" style="float:left;width:170pt;height:inherit;">
+	<h3>{{ user.username }}</h3>
+	{% if img %} <div id="profile_pic" style="width:inherit;margin:10px;"><p><img border="1" alt="Profile Pic" src="{{ img }}" /></p></div> {% endif %}
+	
+	<ul>
+		<li><a href="/subscriptions/" id="my_tog">SUBSCRIPTIONS</a></li>
+		<li><a href="/channels/" id="sub_tog">CHANNELS</a>
+		{% if user.is_authenticated %}
+			<ul>
+				<li>
+				<a href="/channels/add" id="chan_add">   ADD CHANNEL</a>
+			</ul>
+		{% endif %}
+		</li>
+		<li><a href="/profile/" id="sub_tog">PROFILE</a></li>
+		<li><a href="/messages/" id="sub_tog">MESSAGES</a></li>
+	</ul>
 		{% block menu %}{% endblock %}
 	</div>
 	

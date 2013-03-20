@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf import settings
+
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -25,6 +27,20 @@ urlpatterns = patterns('',
     (r'^unsubscribe/channels/v/(.+)/$', 'subscriptions.views.unsubscribe'),
     (r'^index/$', 'core.views.index'),
     (r'^$', 'core.views.index'),
-    
+    (r'^subscriptions/$', 'core.views.index'),
+    (r'^channels/$', 'core.views.mychannels'),
+    (r'^profile/$', 'profiles.views.profile'),
+    (r'^messages/$', 'core.views.mymessages'),
+    (r'^count/', include('django_counter.urls')),
 )
 urlpatterns += staticfiles_urlpatterns()
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+        url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.STATIC_ROOT,
+        }),
+)

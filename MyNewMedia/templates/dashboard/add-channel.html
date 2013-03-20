@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "dashboard/dashboard-base.html" %}
 
-{% block main %}
+{% block content %}
   <h3>Create a new Channel</h3>
 
-  <form method="post">
+  <form method="post"enctype="multipart/form-data">
 	  {% csrf_token %}
       {{ form.as_p }}
       <input class="action_button" type="submit" name="create" value="Create">

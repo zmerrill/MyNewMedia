@@ -1,0 +1,15 @@
+{% extends "dashboard/dashboard-base.html" %}
+
+{% block content %}
+	<div id="owned_channels" class="owned_channels">
+	<h3>Manage my channels</h3>
+	{% for channel in channels %}
+	<div class="channel">
+				<div class="time"><h4><a href="/channels/v/{{ channel.url_ext }}">{{ channel.title }}</a> | {{ channel.created }}</h4></div>
+				<div class="body">{{ channel.description|linebreaks }}</div>
+				<div class="time"><a href="{% url 'channels.views.deletechannel' channel.id %}">DELETE CHANNEL</a></div>
+	</div>
+	<hr>
+	{% endfor %}
+	</div>
+{% endblock %}

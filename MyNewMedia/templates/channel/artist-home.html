@@ -3,6 +3,7 @@
 
 
 {% block content %}
+	{% load counter_tags %} {% counter artist %}
 	{% for channel in channels %}
 	<div class="link">
 				<div class="time"><h4>{{ channel.title }} | {{ channel.created }}</h4></div>

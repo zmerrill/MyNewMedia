@@ -1,24 +1,5 @@
 {% extends "dashboard/dashboard-base.html" %}
 
-{% block menu %}
-	<h3>MNM Dashboard</h3>
-	<ul>
-		<li><a href="javascript:sub_toggle();" id="my_tog">SUBSCRIPTIONS</a></li>
-		<li><a href="javascript:owned_toggle();" id="sub_tog">CHANNELS</a>
-		{% if user.is_authenticated %}
-			<ul>
-				<li>
-				<a href="/channels/add" id="chan_add">   ADD CHANNEL</a>
-			</ul>
-		{% endif %}
-		</li>
-		<li><a href="javascript:owned_toggle();" id="sub_tog">PROFILE</a></li>
-		<li><a href="javascript:owned_toggle();" id="sub_tog">MESSAGES</a></li>
-	</ul>
-	
-{% endblock %}
-
-
 {% block content %}
 	<div id="subscribed_channels" class="subscribed_channels">
 	<h3>Manage my subscriptions</h3>
@@ -26,17 +7,6 @@
 	<div class="channel">
 				<div class="time"><h4><a href="/channels/v/{{ subscription.channel.url_ext }}">{{ subscription.channel.title }}</a> | {{ subscription.channel.created }}</h4></div>
 				<div class="body">{{ subscription.channel.description|linebreaks }}</div>
-	</div>
-	<hr>
-	{% endfor %}
-	</div>
-	<div id="owned_channels" class="owned_channels" style="display:none;">
-	<h3>Manage my channels</h3>
-	{% for channel in channels %}
-	<div class="channel">
-				<div class="time"><h4><a href="/channels/v/{{ channel.url_ext }}">{{ channel.title }}</a> | {{ channel.created }}</h4></div>
-				<div class="body">{{ channel.description|linebreaks }}</div>
-				<div class="time"><a href="{% url 'channels.views.deletechannel' channel.id %}">DELETE CHANNEL</a></div>
 	</div>
 	<hr>
 	{% endfor %}

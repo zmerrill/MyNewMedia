@@ -1,4 +1,7 @@
 from channels.models import Channel, Link
+from PIL import Image as PImage
+from os.path import join as pjoin
+from MyNewMedia.settings import MEDIA_ROOT
 from django.contrib.auth.models import User
 from subscriptions.models import Subscription
 from channels.forms import ChannelForm, LinkForm
@@ -6,6 +9,7 @@ from django.shortcuts import render, redirect
 from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
+from profiles.models import UserProfile
 from django.http import HttpResponseRedirect
 
 
@@ -19,7 +23,13 @@ def channelhome(request, ext):
             subscription = None
     else:
         subscription = "NotLoggedIn"
-    d = dict(channel=channel, links=links, user=request.user, form=LinkForm(), subscription=subscription)
+        
+    try:
+        count = Subscription.objects.get(channel=channel).count()
+    except Subscription.DoesNotExist:
+        count = None
+     
+    d = dict(channel=channel, links=links, user=request.user, form=LinkForm(), subscription=subscription, count=count)
     d.update(csrf(request))
     return render_to_response("channel/channel-home.html", d)
 
@@ -31,13 +41,19 @@ def artisthome(request, ext):
 
 def add(request):
     if request.method == 'POST':
-        form = ChannelForm(request.POST)
+        form = ChannelForm(request.POST, request.FILES)
         if form.is_valid():
-                form.save()
-        return redirect("/../index")        
+                channel = form.save()
+                imfn = pjoin(MEDIA_ROOT, channel.image.name)
+                im = PImage.open(imfn)
+                im.thumbnail((200,200), PImage.ANTIALIAS)
+                im.save(imfn, "JPEG")
+        return redirect("/channels/")        
     else:
         form = ChannelForm(initial={'owner': request.user})
-        return render(request, "channel/add-channel.html", {"form": form})
+        profile = UserProfile.objects.get(owner=request.user)
+        img = "/media/" + profile.avatar.name
+        return render(request, "dashboard/add-channel.html", {"form": form, "img": img})
     
 def addlink(request,ext):
     p=request.POST

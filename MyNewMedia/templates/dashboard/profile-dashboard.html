@@ -1,0 +1,11 @@
+{% extends "dashboard/dashboard-base.html" %}
+
+{% block content %}
+	<h3>Profile Goes Here</h3>
+	
+	<form enctype="multipart/form-data" action="/profile/" method="POST">
+    	{% csrf_token %}
+    	{{ pf.as_p }}
+    	<input type="submit" value="Submit" id="submit" />
+	</form>
+{% endblock %}
