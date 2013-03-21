@@ -51,8 +51,12 @@ def add(request):
         return redirect("/channels/")        
     else:
         form = ChannelForm(initial={'owner': request.user})
-        profile = UserProfile.objects.get(owner=request.user)
-        img = "/media/" + profile.avatar.name
+        try:
+            profile = UserProfile.objects.get(owner=request.user)
+            img = "/media/" + profile.avatar.name
+        except UserProfile.DoesNotExist:
+            img = None
+        
         return render(request, "dashboard/add-channel.html", {"form": form, "img": img})
     
 def addlink(request,ext):
