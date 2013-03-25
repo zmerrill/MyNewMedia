@@ -19,7 +19,7 @@ class Channel(TimeStampedModel):
     language = models.CharField(max_length=100, blank=True)
     feed = models.URLField(blank=True)
     image = models.ImageField("Channel Pic", upload_to="images/", blank=True, null=True)
-	tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag)
     
     def __unicode__(self):
         return self.title
