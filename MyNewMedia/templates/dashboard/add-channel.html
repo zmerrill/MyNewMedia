@@ -1,11 +1,63 @@
 {% extends "dashboard/dashboard-base.html" %}
 
 {% block content %}
+
   <h3>Create a new Channel</h3>
 
   <form method="post"enctype="multipart/form-data">
 	  {% csrf_token %}
-      {{ form.as_p }}
+      <!--{{ form.as_p }}-->
+      {{ form.non_field_errors }}
+      	<table>
+      		<tr>
+      			<td>Title:</td>
+      			{{ form.title.errors }}
+      			<td>{{ form.title }}</td>
+      		</tr>
+      		<tr>
+      			<td>URL Extension:</td>
+      			{{ form.url_ext.errors }}
+      			<td>{{ form.url_ext }}</td>
+      		</tr>
+      		<tr style="display: none">
+      			<td>Owner:</td>
+      			{{ form.owner.errors }}
+      			<td>{{ form.owner }}</td>
+      		</tr>
+      		<tr>
+      			<td>Description:</td>
+      			{{ form.description.errors }}
+      			<td>{{ form.description }}</td>
+      		</tr>
+      		<tr>
+      			<td>Type:</td>
+      			{{ form.type.errors }}
+      			<td>{{ form.type }}</td>
+      		</tr>
+      		<tr>
+      			<td>Language:</td>
+      			{{ form.language.errors }}
+      			<td>{{ form.language }}</td>
+      		</tr>
+      		<tr>
+      			<td>Feed:</td>
+      			{{ form.feed.errors }}
+      			<td>{{ form.feed }}</td>
+      		</tr>
+      		<tr>
+      			<td>Image:</td>
+      			{{ form.image.errors }}
+      			<td>{{ form.image }}</td>
+      		</tr>
+      		<tr>
+      			<td>Tags:</td>
+      			 {{ form.tags.errors }}
+      			<td>{{ form.tags }}</td>
+      		</tr>
+      	</table>
       <input class="action_button" type="submit" name="create" value="Create">
   </form>
 {% endblock %}
+<script type="text/javascript">
+	$('#id_tags').tagsInput();
+</script>

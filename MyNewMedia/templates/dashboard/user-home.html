@@ -11,4 +11,13 @@
 	<hr>
 	{% endfor %}
 	</div>
+	<!-- Add recommendations -->
+	<div id="rec_channels" class="rec_channels">
+	<h3>Recommended</h3>
+	{% for rec in recommendations %}
+		hey {{ rec.title }} might be cool <br/>
+	{% endfor %}
+	see
+	</div>
 {% endblock %}
+

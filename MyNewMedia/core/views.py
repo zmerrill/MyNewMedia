@@ -2,6 +2,7 @@ from django.shortcuts import render
 from channels.models import Channel, ChannelType
 from subscriptions.models import Subscription
 from profiles.models import UserProfile
+from recommendations.views import loadRecommendations
 
 def getImage(user):
     try:
@@ -17,8 +18,8 @@ def index(request):
         subscribed = Subscription.objects.filter(user=request.user)
         channels = Channel.objects.filter(owner=request.user)
         img = getImage(request.user)
-        
-        return render(request, "dashboard/user-home.html", {"subscribed": subscribed, "channels": channels, "user": request.user, "img": img})
+        recs = loadRecommendations(request)
+        return render(request, "dashboard/user-home.html", {"subscribed": subscribed, "channels": channels, "user": request.user, "img": img, "recommendations": recs})
     else:
         channels = Channel.objects.all()
         types = ChannelType.objects.all()

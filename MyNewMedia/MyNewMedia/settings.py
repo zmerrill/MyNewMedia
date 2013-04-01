@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     'tags',
     'registration',
     'django_counter',
+    'taggit'
 )
 ACCOUNT_ACTIVATION_DAYS=7
 EMAIL_HOST = 'localhost'

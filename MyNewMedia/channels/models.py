@@ -2,7 +2,9 @@ from django.db import models
 from django.conf import settings
 from django.contrib import admin
 from core.models import TimeStampedModel
-from tags.models import Tag
+##from tags.models import Tag
+##from django.db import models
+from taggit.managers import TaggableManager
 
 class ChannelType(TimeStampedModel):
     type = models.CharField(max_length=100)
@@ -19,7 +21,8 @@ class Channel(TimeStampedModel):
     language = models.CharField(max_length=100, blank=True)
     feed = models.URLField(blank=True)
     image = models.ImageField("Channel Pic", upload_to="images/", blank=True, null=True)
-    tags = models.ManyToManyField(Tag)
+    ##betaTags = models.ManyToManyField(Tag)
+    tags = TaggableManager()
     
     def __unicode__(self):
         return self.title
