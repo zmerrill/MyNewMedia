@@ -15,9 +15,12 @@
 	<div id="rec_channels" class="rec_channels">
 	<h3>Recommended</h3>
 	{% for rec in recommendations %}
-		hey {{ rec.title }} might be cool <br/>
+		<!--hey {{ rec.title }} might be cool <br/>-->
+		<div class="channel">
+			<div class="time"><h4><a href="/channels/v/{{ rec.url_ext }}">{{ rec.title }}</a> | {{ rec.created }}</h4></div>
+			<div class="body">{{ rec.description|linebreaks }}</div>
+		</div>
 	{% endfor %}
-	see
 	</div>
 {% endblock %}
 
