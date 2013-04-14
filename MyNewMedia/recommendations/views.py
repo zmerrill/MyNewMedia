@@ -25,7 +25,8 @@ def loadRecommendations(request):
     ##So... for these tags, get some channels
         recChannels = []
         for sTag in usersTags:
-            taggedChannels = Channel.objects.filter(tags__name__in=[sTag]).exclude(subscription__user=thisUser).exclude(owner=thisUser)
+            taggedChannels = Channel.objects.filter(tags__name__in=[sTag]).exclude(subscription__user=thisUser).exclude(owner=thisUser).exclude(title__in=[o.title for o in recChannels])
+            #taggedChannels.exclude(title__in=[o.title for o in recChannels])
             if len(taggedChannels) > 0:
                 try:
                     aChannel = taggedChannels[random.randint(0,len(taggedChannels) - 1)]
@@ -64,7 +65,9 @@ def loadOtherRecommendations(request):
     ##So... for these tags, get some channels
         recChannels = []
         for sTag in usersTags:
-            taggedChannels = Channel.objects.filter(tags__name__in=[sTag]).exclude(subscription__user=thisUser).exclude(owner=thisUser)
+            taggedChannels = Channel.objects.filter(tags__name__in=[sTag]).filter(title='boo').exclude(subscription__user=thisUser).exclude(owner=thisUser).exclude(owner=thisUser).exclude(title__in=[o.title for o in recChannels])
+            #taggedChannels.filter(title_in=[o.title for o in recChannels])
+            #taggedChannels.objects.filter(title='boo')
             if len(taggedChannels) > 0:
                 try:
                     aChannel = taggedChannels[random.randint(0,len(taggedChannels) - 1)]
