@@ -4,6 +4,10 @@ from django.contrib import admin
 from core.models import TimeStampedModel
 from channels.models import ChannelType
 
+# Profile model 
+# Acts as an extension of the default user.auth model
+# Fields are sufficiently self-explainitory
+# One note - the page_views refer to the artist page views
 class UserProfile(TimeStampedModel):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
     bio = models.TextField(blank=True)
@@ -16,7 +20,10 @@ class UserProfile(TimeStampedModel):
     page_views = models.IntegerField(default=0)
     def __unicode__(self):
         return unicode(self.owner)
-    
+
+# Preference model 
+# Acts as an extension of the default user.auth model
+# Fields are sufficiently self-explainitory
 class UserPreferences(TimeStampedModel):
     profile = models.ForeignKey(UserProfile)
     type = models.ForeignKey(ChannelType, blank=True)

@@ -1,0 +1,34 @@
+{% extends "search/search-base.html" %}
+
+{% block results %}
+	
+	<h3>Your search results for '{{ query }}'</h3>
+	
+	
+	
+	
+	<div id="channel_results">
+	{% for channel in channels %}
+	<div class="link">
+		<div class="time"><h4 style="padding-top: 15px;"><a href="/channels/v/{{ channel.url_ext }}">{{ channel.title }}</a> | {{ channel.created }}</h4></div>
+		<div class="body">
+			<table border="0" style="padding:3px;">
+				<tr>
+					<td><img style="width:100px;" border="1" alt="Profile Pic" src="/media/{{ channel.image }}" /></td>
+					<td>{{ channel.description|linebreaks }}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<hr>
+	{% endfor %}
+	</div>
+	<div class="link" id="artist_results">
+	{% for artist in artists %}
+	
+	
+	
+	{% endfor %}
+	</div>
+	
+{% endblock %}

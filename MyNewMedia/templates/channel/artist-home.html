@@ -1,13 +1,32 @@
 {% extends "channel/channel-base.html" %}
 
-
+{% block menu %}
+	<h3>{{ artist.username }}</h3>
+	{% if img %} 
+	<div id="profile_pic" style="width:inherit;margin:10px;">
+		<p><img border="1" alt="Profile Pic" src="{{ img }}" /></p>
+	</div> 
+	{% endif %}
+	<p>{{ profile.bio }}</p>
+	{% load counter_tags %} {% counter artist %}
+	{% load counter_tags %}
+	{% view_count for auth.user user.id as page_views %} <p>Page views: {{ page_views }} times.</p>
+	<p>Channels: {{ channels.count }}</p>
+	
+{% endblock %}
 
 {% block content %}
-	{% load counter_tags %} {% counter artist %}
 	{% for channel in channels %}
 	<div class="link">
-				<div class="time"><h4>{{ channel.title }} | {{ channel.created }}</h4></div>
-				<div class="body">{{ channel.description|linebreaks }}</div>
+		<div class="time"><h4 style="padding-top: 15px;"><a href="/channels/v/{{ channel.url_ext }}">{{ channel.title }}</a> | {{ channel.created }}</h4></div>
+		<div class="body">
+			<table border="0" style="padding:3px;">
+				<tr>
+					<td><img style="width:100px;" border="1" alt="Profile Pic" src="/media/{{ channel.image }}" /></td>
+					<td>{{ channel.description|linebreaks }}</td>
+				</tr>
+			</table>
+		</div>
 	</div>
 	<hr>
 	{% endfor %}

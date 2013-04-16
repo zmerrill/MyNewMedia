@@ -7,6 +7,14 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 
+class SubscriptionModelTest(TestCase):
+    def setUpClass(self):
+        
+    def SubscriptionTest(self):
+        
+
+class SubscriptionViewTest(TestCase):
+    def setUpClass(self):
 
 class SimpleTest(TestCase):
     def test_basic_addition(self):

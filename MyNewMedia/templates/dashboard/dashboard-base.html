@@ -3,26 +3,26 @@
 {% block title %}MyNewMedia Home - {{ user.username }}{% endblock %}
 
 {% block main %}
+
 	<div id="menu" style="float:left;width:170pt;height:inherit;">
 	<h3>{{ user.username }}</h3>
 	{% if img %} <div id="profile_pic" style="width:inherit;margin:10px;"><p><img border="1" alt="Profile Pic" src="{{ img }}" /></p></div> {% endif %}
-	
 	<ul>
 		<li><a href="/subscriptions/" id="my_tog">SUBSCRIPTIONS</a></li>
-		<li><a href="/channels/" id="sub_tog">CHANNELS</a>
-		{% if user.is_authenticated %}
-			<ul>
-				<li>
-				<a href="/channels/add" id="chan_add">   ADD CHANNEL</a>
-			</ul>
-		{% endif %}
+		<li><a href="/channels/" id="sub_tog">MANAGE CHANNELS</a>
+		{% block channelsub %}{% endblock %}
 		</li>
-		<li><a href="/profile/" id="sub_tog">PROFILE</a></li>
-		<li><a href="/messages/" id="sub_tog">MESSAGES</a></li>
+		<li><a href="/artist/v/{{ user.username }}" id="sub_tog">VIEW ARTIST PAGE</a></li>
+		<li><a href="/profile/" id="sub_tog">EDIT PROFILE</a></li>
+		<li><a href="{% url 'messages_inbox' %}" id="sub_tog">MESSAGES</a>
+		{% block messages %}{% endblock %}
+		</li>
 	</ul>
 		{% block menu %}{% endblock %}
 	</div>
-	
+	<div id="recs" style="float:right;width:200pt;">
+		{% block recs %}{% endblock %}
+	</div>
 	<div id="content" style="float:none;margin-left:200pt;margin-right:200pt;">
 		{% block content %}{% endblock %}
 	</div>

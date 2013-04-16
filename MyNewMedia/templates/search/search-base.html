@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ channel.title }}{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block main %}
+	<div id="menu" style="float:left;width:170pt;height:inherit;">
+		{% block menu %}{% endblock %}
+	</div>
+	<div id="recs" style="float:right;width:200pt;">
+		{% block recs %}{% endblock %}
+	</div>
+	<div id="content" style="float:none;margin-left:200pt;margin-right:200pt;">
+		{% block results %}{% endblock %}
+	</div>
+{% endblock %}
+
+{% block footer %}
+	<p>Thanks for stopping by.</p>
+{% endblock %}

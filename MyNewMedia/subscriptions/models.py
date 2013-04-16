@@ -4,6 +4,9 @@ from django.contrib import admin
 from core.models import TimeStampedModel
 from channels.models import Channel
 
+# Basic subscrition model -
+# Foreign keys to the user and channel relationship
+# Number of unread posts
 class Subscription(TimeStampedModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     channel = models.ForeignKey(Channel)

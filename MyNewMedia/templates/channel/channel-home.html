@@ -1,7 +1,6 @@
 {% extends "channel/channel-base.html" %}
 
 {% block menu %}
-	{% load counter_tags %} {% counter channel %}
 	<h3>{{ channel.title }}</h3>
 	{% if channel.image %} 
 	<div id="profile_pic" style="width:inherit;margin:10px;">
@@ -9,14 +8,14 @@
 	</div> 
 	{% endif %}
 	<p>{{ channel.description }}</p>
+	{% load counter_tags %} {% counter channel %}
 	{% load counter_tags %}
 	{% view_count for channels.channel channel.id as page_views %} <p>Channel views: {{ page_views }} times.</p>
-	<p>Subscribers: {{ count }}</p>
+	<p>Subscribers: {{ count.count }}</p>
 
 	{% if channel.owner == user %}
-	<a id="displayText" href="javascript:toggle();">Add Link</a>
+	<!--  a id="displayText" href="javascript:toggle();">Add Link</a>
 	<div class="toggle" id="toggle" style="display: none">
-	<!-- Comment form  -->
 		<form action="{% url 'channels.views.addlink' channel.url_ext %}" method="POST">{% csrf_token %}
 			<div id="cform">
 				<p>Title: {{ form.title }}</p>
@@ -26,6 +25,17 @@
 			</div>
 			<div id="submit"><input class="action_button" type="submit" value="Submit"></div>
 		</form>
+	</div>-->
+	<div id="embedButton"><button id="opener" class="action_button">Embed this channel</button></div>
+	<div id="embedDialog" title="Embed this channel">
+  		<p>Paste the following HTML into any website to embed a link to this channel.</p>
+			<textarea id="embedHTML" rows="9" cols="78">
+<table border=&quot;0&quot;><tr><td>
+<a href=&quot;http://127.0.0.1:8000/&quot; target=&quot;_blank&quot;>
+<img src=&quot;http://127.0.0.1:8000/static/images/logo.png&quot; border=&quot;0&quot; style=&quot;max-width:100%;&quot;/></a></td></tr>
+<tr><td style=&quot;color: #333333;font-family: Verdana, Geneva, sans-serif; font-size: 10px;&quot;>
+<a href=&quot;http://127.0.0.1:8000/channels/v/{{ channel.url_ext }}?auto=true&quot; target=&quot;_blank&quot;>Tune in on RadioIO</a></td></tr></table>
+			</textarea>
 	</div>
 	{% else %}
 	{% if subscription %}
@@ -48,8 +58,81 @@
 
 {% block content %}
 	{% if channel.feed %}
-	<div id="feed-test">
-		{% load channel_extras %}{% pull_feed channel.feed 5 %}
+	<script>
+    function updateFeed(){
+    	$.ajax({
+            url: "/feedpull/{{ channel.url_ext }}/",
+            success: function(data) {
+                $('#feedspot').hide().html(data).fadeIn();
+            }
+        });
+    }
+    //setInterval("updateFeed()", 10000);
+    </script>
+    
+	<div id="feedspot" style="padding:3px;">
+	
+	{% load pagination_tags %}
+	{% autopaginate posts 5 %}
+		{% for post in posts %}
+	<script>
+	$(document).ready(function(){
+    	$(".rss{{ post.id }}").click(function() {
+    		post{{ post.id }}();
+    		
+		});
+
+	});
+	</script>
+	<script>
+	function post{{ post.id }}(){
+		$.get("/markasread/{{ post.id }}/{{ channel }}/");
+		alert("{{ post.title }}");
+	}
+	
+	function ajax(){
+		$.ajax({
+			type: "POST",
+            url: "/markasread/{{ post.id }}/{{ post.channel }}/"
+        });
+	}
+    </script>
+		<div class="rss{{ post.id }}">
+				<div class="inner">
+					<table>
+						<tr>
+							{% if post.image %}
+							<td><img src="{{ post.image }}" alt="Pulpit rock" width="75px"></td>
+							{% endif %}
+							<td><h4><a class="link" href="{{ post.link }}">{{ post.title }}</a>    |    {{ post.date }}</h4></td>
+						</tr>
+					</table>
+				</div>
+				{% if post.audio %}
+					<audio controls height="100" width="100">
+  						<source src="{{ post.audio }}" type="audio/mpeg">
+  						<source src="{{ post.audio }}" type="audio/ogg">
+  						<embed height="50" width="100" src="{{ post.audio }}">
+					</audio>
+				{% endif %}
+				
+				{% if post.video %}
+					<video width="320" height="240" controls>
+  						<source src="{{ post.video }}" type="video/mp4">
+  						<source src="{{ post.video }}" type="video/ogg">
+  						<source src="{{ post.video }}" type="video/webm">
+  						<object data="{{ post.video }}" width="320" height="240">
+    						<embed src="{{ post.video }}" width="320" height="240">
+  						</object> 
+					</video>
+				{% endif %}
+				
+				<div class="links">{{ post.links }}</div>
+				<div class="summary">{{ post.summary|safe }}</div>
+		</div>
+	<hr>
+{% endfor %}
+{% paginate %}
 	</div>
 	{% else %}
 		{% for link in links %}

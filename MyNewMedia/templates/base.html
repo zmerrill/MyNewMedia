@@ -84,7 +84,10 @@
 	background-color:#64b751;
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
+	border-width:1px;
+	border-color:#7d7d7d;
 	border-radius:3px;
+	height:35px;
 	color:#ffffff;
 	font: 100 14px/1.5 "Interstate","Lucida Grande",Arial,sans-serif;
 	padding:6px 24px;
@@ -148,6 +151,33 @@ li ul li a{
 
     </style>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+  	
+  	<script>
+  	$(function() {
+    $( "#embedDialog" ).dialog({
+      autoOpen: false,
+      resizeable: false,
+      width: 600,
+      height: 270,
+      modal: true,
+      show: {
+        effect: "blind",
+        duration: 500
+      },
+      hide: {
+        effect: "explode",
+        duration: 500
+      }
+    });
+ 
+    $( "#opener" ).click(function() {
+      $( "#embedDialog" ).dialog( "open" );
+    });
+  });
+  </script>
     <script> 
     function toggle() {
     	  $('#' + "toggle").slideToggle();
@@ -174,6 +204,7 @@ li ul li a{
   	  $('#' + "subscribed_channels").hide();
   	}
     </script>
+    
 </head>
 
 <body>
@@ -182,16 +213,23 @@ li ul li a{
 			<div id='home_icon' style="float:left;"><a href="/index/">
 				<img id="logo" src="/static/images/logo.png" alt="MyNewMedia Home" style="padding-left:24px;">
 			</a></div>
-			<div id='home_link' style="float:left;color:#ccc;margin:14px;"><a class="header_link" href="/index/">Home
+			<div id='home_link' style="float:left;color:#ccc;margin:14px 18px;"><a class="header_link" href="/index/">  Home  
 			</a></div>
-			<div id='search_bar'></div>
+			<div id='browser_link' style="float:left;color:#ccc;margin:14px 18px;"><a class="header_link" href="/browse/">Browse
+			</a></div>
+			<div id='search_bar' style="float: left;">
+				<form action="/results/" method="get">
+        			<input type="text" name="q" style="border:0;margin-top:9px;margin-left:15px;width: 25em;border-radius: 5px;padding: 7px 7px;font-size: 14px;font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;">
+        			<input type="submit" value="Search" class="action_button" style="margin-top: -2.5em;padding:0px 4px;margin-left:5px;">
+    			</form>
+			</div>
 			<div id='user_info'style="float:right;padding-right:6px">
 				{% if user.is_authenticated %}
     				<p>Hi there, {{ user.username }}. <a class="header_link" href="/accounts/logout/">Logout</a></p>
 				{% else %}
 					<p style="padding-right:110px">Welcome to IO Radio, Please <a class="header_link" href="/accounts/login/"> log in </a> or</p> 
     				<form action="/accounts/register/" style="vertical-align:middle;">
-    					<input style="margin-top: -3.2em;" class="action_button" id="sign_up" type="submit" value="Sign Up">
+    					<input style="margin-top: -3.05em;" class="action_button" id="sign_up" type="submit" value="Sign Up">
 					</form>
 				{% endif %}
 			</div>

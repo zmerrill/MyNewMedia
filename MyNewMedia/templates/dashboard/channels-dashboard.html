@@ -1,15 +1,41 @@
 {% extends "dashboard/dashboard-base.html" %}
 
+{% block channelsub %}
+{% if user.is_authenticated %}
+			<ul>
+				<li>
+				<a href="/channels/add" id="chan_add">&raquo;&nbsp;ADD CHANNEL</a>
+			</ul>
+		{% endif %}
+{% endblock %}
+
 {% block content %}
+{% load channel_extras %}
 	<div id="owned_channels" class="owned_channels">
 	<h3>Manage my channels</h3>
 	{% for channel in channels %}
+	
 	<div class="channel">
-				<div class="time"><h4><a href="/channels/v/{{ channel.url_ext }}">{{ channel.title }}</a> | {{ channel.created }}</h4></div>
-				<div class="body">{{ channel.description|linebreaks }}</div>
-				<div class="time"><a href="{% url 'channels.views.deletechannel' channel.id %}">DELETE CHANNEL</a></div>
+				<div class="time"><h4><a href="/channels/v/{{ channel.url_ext }}">{{ channel.title }}</a> | {{ channel.created }} | {{ counts|get_item:channel.id }} Total Feed Items</h4></div>
+				<div class="body">
+					<table border="0" style="padding:3px;">
+						<tr>
+							<td><img style="width:100px;" border="1" alt="Profile Pic" src="/media/{{ channel.image }}" /></td>
+							<td>{{ channel.description|linebreaks }}</td>
+						</tr>
+						<tr>
+							<td>
+								{% load counter_tags %}
+								{% view_count for channels.channel channel.id as page_views %} <p>Channel views: {{ page_views }} times.</p>
+						</tr>
+					</table>
+				</div>
+				<div class="time"><a href="{% url 'channels.views.edit' channel.id %}">EDIT CHANNEL</a>   |   
+				<a href="{% url 'channels.views.deletechannel' channel.id %}">DELETE CHANNEL</a>
+				</div>
 	</div>
 	<hr>
+	
 	{% endfor %}
 	</div>
 {% endblock %}

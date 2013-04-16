@@ -1,0 +1,13 @@
+{% extends "dashboard/dashboard-base.html" %}
+{% load i18n %}  
+{% block bodyclass %}about{% endblock %}
+{% block content %}  
+{% endblock %}
+{% block messages %}
+<ul class="subnavilist">
+    <li><a href="{% url 'messages_inbox' %} ">&raquo;&nbsp;{% trans "INBOX" %}</a></li>
+    <li><a href="{% url 'messages_outbox' %} ">&raquo;&nbsp;{% trans "SENT MESSAGES" %}</a></li>
+    <li><a href="{% url 'messages_compose' %} ">&raquo;&nbsp;{% trans "NEW MESSAGE" %}</a></li>
+    <li><a href="{% url 'messages_trash' %} ">&raquo;&nbsp;{% trans "TRASH" %}</a></li>
+</ul>
+{% endblock %}

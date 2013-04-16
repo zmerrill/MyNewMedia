@@ -7,6 +7,9 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 
+class RecViewTests(TestCase):
+    def setUpClass(self):
+        
 
 class SimpleTest(TestCase):
     def test_basic_addition(self):

@@ -1,18 +1,30 @@
 {% extends "dashboard/dashboard-base.html" %}
 
 {% block content %}
+{% load channel_extras %}
 	<div id="subscribed_channels" class="subscribed_channels">
 	<h3>Manage my subscriptions</h3>
 	{% for subscription in subscribed %}
 	<div class="channel">
-				<div class="time"><h4><a href="/channels/v/{{ subscription.channel.url_ext }}">{{ subscription.channel.title }}</a> | {{ subscription.channel.created }}</h4></div>
-				<div class="body">{{ subscription.channel.description|linebreaks }}</div>
+				<div class="time"><h4><a href="/channels/v/{{ subscription.channel.url_ext }}">{{ subscription.channel.title }}</a> | {{ subscription.channel.created }} | {{ counts|get_item:subscription.channel.id }} Total Feed Items | {{ unreadcounts|get_item:subscription.channel.id }} Items Unread!</h4></div>
+				<div class="body">
+				<table border="0" style="padding:3px;">
+						<tr>
+							<td><img style="width:100px;" border="1" alt="Profile Pic" src="/media/{{ subscription.channel.image }}" /></td>
+							<td>{{ subscription.channel.description|linebreaks }}</td>
+						</tr>
+					</table>
+				</div>
 	</div>
 	<hr>
 	{% endfor %}
 	</div>
 	<!-- Add recommendations -->
-	<div id="rec_channels" class="rec_channels">
+	
+{% endblock %}
+
+{% block recs %}
+<div id="rec_channels" class="rec_channels">
 	<h3>Recommended</h3>
 	{% for rec in recommendations %}
 		<!--hey {{ rec.title }} might be cool <br/>-->
@@ -22,5 +34,4 @@
 		</div>
 	{% endfor %}
 	</div>
-{% endblock %}
-
+	{% endblock %}

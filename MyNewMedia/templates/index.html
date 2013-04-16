@@ -1,24 +1,178 @@
+
 {% extends "base.html" %}
 
-{% block main %}
-	<select id='filter'>
-		{% for type in types %}
-			<option value="{{ type }}">{{ type }}</option>
-		{% endfor %}
-	</select>
-	
-	{% if user.is_authenticated %}
-		<a href="/channels/add">Add a new channel...</a>
-	{% endif %}
-	
-	{% for channel in channels %}
-		<section>
-		<div class="comment">
-					<div class="time"><a href="/channels/v/{{ channel.url_ext }}">{{ channel.title }}</a> | {{ channel.created }}</div>
-					<div class="body">{{ channel.description|linebreaks }}</div>
-		</div>
-		</section>
-		<hr>
-	{% endfor %}
-{% endblock %}
 
+{% block main %}
+	<!-- <select id='filter'>
+		{% for type in types %}
+			<option value="{{ type }}">{{ type }}</option> 
+		{% endfor %}
+	</select>-->
+	
+
+	
+	<dl>
+		<dt><h5>Welcome to MyNewMedia!</h5></dt>
+		<br/>
+		<dd>-This Website is cool!</dd>
+		<dd>-Bla bla</dd>
+		<dd>-More garbage</dd>
+		
+	</dl>
+	<br/><br/><br/><br/><br/>
+
+		<!-- CSS (example)
+			#splash_page1{font:bold;}
+			#splash_page2{font:itallics;}
+		 -->
+
+		{% if user.is_authenticated %}
+			<a href="/channels/add">Add a new channel...</a>
+		{% endif %}
+		<!-- <div  class="time"><a href="/channels/v/{{ channel.url_ext }}">{{ channel.title }}</a> | {{ channel.created }}</div>
+						<div class="body">{{ channel.description|linebreaks }}</div> -->
+		<!--<img border="1" width="200" alt="Profile Pic" src="/media/{{ channel.image.name }}" />-->
+			<style type="text/css">
+				ul.ppt {
+					position: relative;
+				}
+				
+				.ppt li {
+					list-style-type: none;
+					position: absolute;
+					width: 100%;
+					text-align: center;
+					margin-left: -150px;	
+				}
+				
+				#back
+				{
+					margin-right: 200px;
+				}
+				#stop
+				{
+					margin-right: 200px;
+				}
+				#play
+				{
+					margin-right: 200px;
+				}
+				#fwd
+				{
+					margin-right: 200px;
+				}
+				
+				
+				#something
+				{
+				 text-align: center;
+				 width: 1000px;
+				 //background-color: blue;
+				 margin: 0 auto;
+				}
+		   </style>
+		
+			<div id ="something">
+			<button type="button" id="back">Back</button>
+			<button type="button" id="stop">Pause</button>
+			<button type="button" id="play">Play</button>
+			<button type="button" id="fwd">Forward</button>
+				<br/><br/>
+				<ul class="ppt">
+		{% for channel in channels %} 
+					<li>
+					<img  border="1" width="200" alt="Profile Pic" src="/media/{{ channel.image.name }}" ></img>
+					<br/>
+				    {{ channel.title }}  |
+					{{ channel.created }} 
+					{{ channel.description|linebreaks }}
+					</li>
+		{% endfor %}
+				</ul>
+			</div>
+		
+		
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
+		<script type="text/javascript">
+		$('.ppt li:gt(0)').hide();
+		$('.ppt li:last').addClass('last');
+		$('.ppt li:first').addClass('first');
+		$('#play').hide();
+		
+		var cur = $('.ppt li:first');
+		var interval;
+		
+		$('#fwd').click( function() {
+			goFwd();
+			showPause();
+		} );
+		
+		$('#back').click( function() {
+			goBack();
+			showPause();
+		} );
+		
+		$('#stop').click( function() {
+			stop();
+			showPlay();
+		} );
+		
+		$('#play').click( function() {
+			start();
+			showPause();
+		} );
+		
+		function goFwd() {
+			stop();
+			forward();
+			start();
+		}
+		
+		function goBack() {
+			stop();
+			back();
+			start();
+		}
+		
+		function back() {
+			cur.fadeOut( 1);
+			if ( cur.attr('class') == 'first' )
+				cur = $('.ppt li:last');
+			else
+				cur = cur.prev();
+			cur.fadeIn( 1000 );
+		}
+		
+		function forward() {
+			cur.fadeOut( 1 );
+			if ( cur.attr('class') == 'last' )
+				cur = $('.ppt li:first');
+			else
+				cur = cur.next();
+			cur.fadeIn( 1000 );
+		}
+		
+		function showPause() {
+			$('#play').hide();
+			$('#stop').show();
+		}
+		
+		function showPlay() {
+			$('#stop').hide();
+			$('#play').show();
+		}
+		
+		function start() {
+			interval = setInterval( "forward()", 3000 );
+		}
+		
+		function stop() {
+			clearInterval( interval );
+		}
+		
+		$(function() {
+			start();
+		} );
+		</script>
+
+{% endblock %}
